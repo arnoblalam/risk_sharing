@@ -26,11 +26,11 @@ Exploratory data analysis
         
     If you are using the command prompt:
     
-        1. cd into the project directory 
+    1. cd into the project directory 
         
-        2. Run the file `src/tanzania_exploration.R`
+    2. Run the file `src/tanzania_exploration.R`
      
-         ```
-         cd risk_sharing
-         Rscript src/tanzania_exploration.R
-         ```
+    ```
+    cd risk_sharing
+    Rscript src/tanzania_exploration.R
+    ```
