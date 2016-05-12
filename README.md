@@ -18,11 +18,11 @@ Exploratory data analysis
 
     If you are using Rstudio:
     
-        1. Open the project risk_sharing.Rproj (using File -> Open Project)
-        
-        2. Open the file `src/tanzania_exploration.R` in the Rstudio Editor (File -> Open File)
-        
-        3. Source the file
+    1. Open the project risk_sharing.Rproj (using File -> Open Project)
+    
+    2. Open the file `src/tanzania_exploration.R` in the Rstudio Editor (File -> Open File)
+    
+    3. Source the file
         
     If you are using the command prompt:
     
