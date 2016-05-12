@@ -35,7 +35,7 @@ message("The Tanzanaia data has ",
         " connections (edges) between these nodes")
 message("The most connected household is (household ID) ",
             which.max(connectedness),
-            " which has " %+% max(connectedness),
+            " which has ", max(connectedness),
             " connections (one way or two way)")
 message("The household that is most frequently in the shortest path between two other households is household ",
         which.max(betweenness_structure))
