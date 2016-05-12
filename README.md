@@ -15,5 +15,7 @@ Exploratory data analysis
 1. Run the file `src/tanzania_exploration.R` to get some preliminary exploration
      of the Tanzania data
      
+     ```
      cd risk_sharing
      Rscript src/tanzania_exploration.R
+     ```
