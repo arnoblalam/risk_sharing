@@ -63,6 +63,12 @@ message("The minimum spanning tree for this graph has ", length(E(mst)),
 flog.info("Plotting the graph and histogram of degree")
 
 plot(tanzania_graph, layout = layout_nicely)
-hist(degree(tanzania_graph),
+hist(connectedness,
      main = "Histogram of degree distribution of the Tanzania Graph",
-     xlab = "Degree Distribution")
+     xlab = "Degrees")
+hist(closeness_structure,
+     main = "Histogram of closeness (1/distance) of the Tanzania Graph",
+     xlab = "Closeness")
+hist(betweenness_structure,
+     main = "Histogram of betweenness of the Tanzania Graph",
+     xlab = "Betweenness")
