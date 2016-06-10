@@ -3,7 +3,7 @@
 # maintainer    : Arnob L. Alam <aa2288a@student.american.edu>
 # updated       : 2016-05-26
 #
-# Exploration of Tanzania Risk Sharing Netwrok Data, only using bilateral links
+# Exploration of Tanzania Risk Sharing Netwrok Data
 
 # Source in the utility file
 source("src/utils.R")
@@ -12,8 +12,9 @@ flog.info("Reading in data")
 tanzania_data <- read.csv("data/tanzania_data.csv", stringsAsFactors = FALSE)
 
 flog.info("Converting to igraph structure")
-links <- tanzania_data[tanzania_data$willingness_link1 == 1 & tanzania_data$willingness_link2, 1:2]
+links <- tanzania_data[tanzania_data$willingness_link1 == 1, 1:2]
 tanzania_graph <- graph_from_edgelist(as.matrix(links), directed = FALSE)
+tanzania_graph <- simplify(tanzania_graph, remove.multiple = TRUE, remove.loops = TRUE)
 
 flog.info("Getting some basic statistics")
 length(V(tanzania_graph))
@@ -36,7 +37,7 @@ message("The Tanzanaia data has ",
 message("The most connected household is (household ID) ",
         which.max(connectedness),
         " which has ", max(connectedness),
-        " connections (two way connections only)")
+        " connections")
 message("The household that is most frequently in the shortest path between two other households is household ",
         which.max(betweenness_structure))
 message("The household that is adjacent to most other households is household ",
