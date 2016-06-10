@@ -13,7 +13,7 @@ tanzania_data <- read.csv("data/tanzania_data.csv", stringsAsFactors = FALSE)
 
 flog.info("Converting to igraph structure")
 links <- tanzania_data[tanzania_data$willingness_link1 == 1, 1:2]
-tanzania_graph <- simplify(graph_from_edgelist(as.matrix(links), directed = FALSE),
+tanzania_graph <- simplify(graph_from_edgelist(as.matrix(links), directed = TRUE),
                            remove.multiple = TRUE,
                            remove.loops = TRUE)
 
