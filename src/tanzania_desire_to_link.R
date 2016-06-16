@@ -73,3 +73,23 @@ hist(closeness_structure,
 hist(betweenness_structure,
      main = "Histogram of betweenness of the Tanzania Graph",
      xlab = "Betweenness")
+
+
+diam_er <- replicate(100000,
+                     diameter(erdos.renyi.game(n = length(V(tanzania_graph)),
+                                               p.or.m = length(E(tanzania_graph)),
+                                               type="gnm", directed= TRUE)))
+hist(diam_er)
+
+apl_er <- replicate(100000,
+                    average.path.length(erdos.renyi.game(n = length(V(tanzania_graph)),
+                                                         p.or.m = length(E(tanzania_graph)),
+                                                         type="gnm",
+                                                         directed= TRUE)))
+hist(apl_er)
+
+diam_config <- replicate(100000, diameter(
+    degree.sequence.game(degree(tanzania_graph), method = "vl")))
+
+apl_config <- replicate(100000, average.path.length(
+    degree.sequence.game(degree(tanzania_graph), method = "vl")))
