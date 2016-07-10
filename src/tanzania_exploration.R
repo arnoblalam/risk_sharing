@@ -12,7 +12,7 @@ flog.info("Reading in data")
 tanzania_data <- read.csv("data/tanzania_data.csv", stringsAsFactors = FALSE)
 
 flog.info("Converting to igraph structure")
-links <- as.matrix(tanzania_data[tanzania_data$willingness_link1 == 1,1:2])
+links <- as.matrix(as.character(tanzania_data[tanzania_data$willingness_link1 == 1,1:2]))
 tanzania_graph <- graph_from_edgelist(links)
 
 flog.info("Getting some basic statistics")

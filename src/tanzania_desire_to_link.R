@@ -14,82 +14,41 @@ tanzania_data <- read.csv("data/tanzania_data.csv", stringsAsFactors = FALSE)
 flog.info("Converting to igraph structure")
 links <- as.matrix(tanzania_data[tanzania_data$willingness_link1 == 1, 1:2])
 tanzania_graph <- simplify(graph_from_edgelist(links, directed = TRUE),
-                           remove.multiple = TRUE,
+                           remove.multiple = FALSE,
                            remove.loops = TRUE)
 
 flog.info("Getting some basic statistics")
-length(V(tanzania_graph))
+size <- length(V(tanzania_graph))
+order <- length(E(tanzania_graph))
+diam <- diameter(tanzania_graph, directed = FALSE)
+avg_degree <- mean(degree(tanzania_graph))
+degree_sequence <- degree(tanzania_graph)
+cc <- transitivity(tanzania_graph)
+apl <- average.path.length(tanzania_graph)
+giant_component <- largest_component(tanzania_graph)
 
-connectedness <- degree(tanzania_graph)
-closeness_structure <- closeness(tanzania_graph)
-betweenness_structure <- betweenness(tanzania_graph)
+# Comparing to other models
 
-deg <- centr_degree(tanzania_graph)$centralization
-clos <- centr_clo(tanzania_graph)$centralization
-bet <- centr_betw(tanzania_graph)$centralization
-eig <- centr_eigen(tanzania_graph)$centralization
+## Erdos-Renyi
+flog.info("Generating 100K Erdos-Renyi Graphs")
+er_graphs <- replicate(1000, sample_gnm(size, order, directed = TRUE),
+                       simplify = FALSE)
+diams_er <- sapply(er_graphs, diameter, directed=TRUE)
+apls_er <- sapply(er_graphs, average.path.length)
+cc_er <- sapply(er_graphs, transitivity)
+giant_comps_er <- sapply(er_graphs, largest_component)
+avg_degrees_er_in <- sapply(er_graphs, function(graph) mean(degree(graph, mode = "in")))
+avg_degrees_er_out <- sapply(er_graphs, function(graph) mean(degree(graph, mode = "out")))
 
-# Print out the stats to screen
-message("The Tanzanaia data has ",
-        length(V(tanzania_graph)),
-        " nodes and ",
-        length(E(tanzania_graph)),
-        " connections (edges) between these nodes")
-message("The most connected household is (household ID) ",
-        which.max(connectedness),
-        " which has ", max(connectedness),
-        " connections (two way connections only)")
-message("The household that is most frequently in the shortest path between two other households is household ",
-        which.max(betweenness_structure))
-message("The household that is adjacent to most other households is household ",
-        which.max(closeness_structure))
+## Configuration model
+flog.info("Generating 100K configuration graphs")
+config_graphs <- replicate(1000, degree.sequence.game(degree(tanzania_graph, mode = "out"),
+                                                      degree(tanzania_graph, mode = "in"),
+                                                      method = "simple"),
+                           simplify = FALSE)
+diams_config <- sapply(config_graphs, diameter)
+apls_config <- sapply(config_graphs, average.path.length)
+cc_config <- sapply(config_graphs, transitivity)
+giant_comps_config <- sapply(config_graphs, largest_component)
+avg_degrees_config <- sapply(config_graphs, function(graph) mean(degree(graph)))
 
-message("
-        Measures of graph centralization (normalized to theoretical maximum of a 119 node network)")
-
-message("\tDegree Centralization: ", round(deg, 2))
-message("\tCloseness Centralization: ", round(clos, 2))
-message("\tBetweenness Centralization: ", round(bet), 2)
-message("\tEigenvector Centralization: ", round(eig), 2)
-
-message("Some measure of redunandancy:")
-
-mst <- minimum.spanning.tree(tanzania_graph)
-
-message("The minimum spanning tree for this graph has ", length(E(mst)),
-        " edges (compared to the " , length(E(tanzania_graph)),
-        " in the original graph).")
-
-
-flog.info("Plotting the graph and histogram of degree")
-
-plot(tanzania_graph, layout = layout_nicely)
-hist(connectedness,
-     main = "Histogram of degree distribution of the Tanzania Graph",
-     xlab = "Degrees")
-hist(closeness_structure,
-     main = "Histogram of closeness (1/distance) of the Tanzania Graph",
-     xlab = "Closeness")
-hist(betweenness_structure,
-     main = "Histogram of betweenness of the Tanzania Graph",
-     xlab = "Betweenness")
-
-
-diam_er <- replicate(100000,
-                     diameter(erdos.renyi.game(n = length(V(tanzania_graph)),
-                                               p.or.m = length(E(tanzania_graph)),
-                                               type="gnm", directed= TRUE)))
-hist(diam_er)
-
-apl_er <- replicate(100000,
-                    average.path.length(erdos.renyi.game(n = length(V(tanzania_graph)),
-                                                         p.or.m = length(E(tanzania_graph)),
-                                                         type="gnm",
-                                                         directed= TRUE)))
-hist(apl_er)
-
-diam_config <- replicate(100000, diameter(
-    degree.sequence.game(degree(tanzania_graph), method = "vl")))
-
-apl_config <- replicate(100000, average.path.length(
-    degree.sequence.game(degree(tanzania_graph), method = "vl")))

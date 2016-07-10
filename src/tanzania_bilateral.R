@@ -13,9 +13,7 @@ tanzania_data <- read.csv("data/tanzania_data.csv", stringsAsFactors = FALSE)
 
 flog.info("Converting to igraph structure")
 # If either household says there is a link between them, we count it
-links <- as.matrix(tanzania_data[tanzania_data$willingness_link1 == 1 |
-                                     tanzania_data$willingness_link1 == 1
-                                 , 1:2])
+links <- as.matrix(tanzania_data[tanzania_data$willingness_link1 == 1 |tanzania_data$willingness_link2 == 1, 1:2])
 
 # Create an igraph undirected graph from the links
 tanzania_graph <- graph_from_edgelist(links, directed = FALSE)
@@ -25,24 +23,34 @@ tanzania_graph <- simplify(tanzania_graph,
                            remove.loops = TRUE)
 
 flog.info("Getting some basic statistics")
+size <- length(V(tanzania_graph))
+order <- length(E(tanzania_graph))
 diam <- diameter(tanzania_graph, directed = FALSE)
+avg_degree <- mean(degree(tanzania_graph))
+degree_sequence <- degree(tanzania_graph)
+cc <- transitivity(tanzania_graph, type = "local")
+apl <- average.path.length(tanzania_graph)
+giant_component <- largest_component(tanzania_graph)
+
 # Comparing to other models
+
 ## Erdos-Renyi
-diam_er <- replicate(100000,
-                     diameter(erdos.renyi.game(n = length(V(tanzania_graph)),
-                                               p.or.m = length(E(tanzania_graph)),
-                                               type="gnm", directed= FALSE)))
-hist(diam_er)
+flog.info("Generating 100K Erdos-Renyi Graphs")
+er_graphs <- replicate(100000, sample_gnm(size, order, directed = TRUE, loops = FALSE),
+                       simplify = FALSE)
+diams_er <- sapply(er_graphs, diameter)
+apls_er <- sapply(er_graphs, average.path.length)
+cc_er <- sapply(er_graphs, transitivity)
+giant_comps_er <- sapply(er_graphs, largest_component)
+avg_degrees_er <- sapply(er_graphs, function(graph) mean(degree(graph)))
 
-apl_er <- replicate(100000,
-                    average.path.length(erdos.renyi.game(n = length(V(tanzania_graph)),
-                                                         p.or.m = length(E(tanzania_graph)),
-                                                         type="gnm",
-                                                         directed= FALSE)))
-hist(apl_er)
+## Configuration model
+flog.info("Generating 100K configuration graphs")
+config_graphs <- replicate(100000, sample_degseq(degree_sequence, method = "vl"),
+                           simplify = FALSE)
+diams_config <- sapply(config_graphs, diameter)
+apls_config <- sapply(config_graphs, average.path.length)
+cc_config <- sapply(config_graphs, transitivity)
+giant_comps_config <- sapply(config_graphs, largest_component)
+avg_degrees_cc <- sapply(config_graphs, function(graph) mean(degree(graph)))
 
-diam_config <- replicate(100000, diameter(
-    degree.sequence.game(degree(tanzania_graph), method = "vl")))
-
-apl_config <- replicate(100000, average.path.length(
-    degree.sequence.game(degree(tanzania_graph), method = "vl")))
