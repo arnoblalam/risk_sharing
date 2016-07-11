@@ -3,7 +3,8 @@
 # maintainer    : Arnob L. Alam <aa2288a@student.american.edu>
 # updated       : 2016-05-26
 #
-# Exploration of Tanzania Risk Sharing Netwrok Data
+# Exploration of Tanzania Risk Sharing Netwrok Data assuming the bilateral model
+# (if we observe the link hh1 -> hh2, we impute the link hh1 <- hh2)
 
 # Source in the utility file
 source("src/utils.R")
