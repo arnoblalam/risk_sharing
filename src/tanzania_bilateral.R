@@ -37,7 +37,7 @@ giant_component <- largest_component(tanzania_graph)
 
 ## Erdos-Renyi
 flog.info("Generating 100K Erdos-Renyi Graphs")
-er_graphs <- replicate(100000, sample_gnm(size, order, directed = TRUE, loops = FALSE),
+er_graphs <- replicate(100000, sample_gnm(size, order, directed = FALSE, loops = FALSE),
                        simplify = FALSE)
 diams_er <- sapply(er_graphs, diameter)
 apls_er <- sapply(er_graphs, average.path.length)
