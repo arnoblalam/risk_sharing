@@ -31,7 +31,7 @@ giant_component <- largest_component(tanzania_graph)
 
 ## Erdos-Renyi
 flog.info("Generating 100K Erdos-Renyi Graphs")
-er_graphs <- replicate(1000, sample_gnm(size, order, directed = TRUE),
+er_graphs <- replicate(1000000, sample_gnm(size, order, directed = TRUE),
                        simplify = FALSE)
 diams_er <- sapply(er_graphs, diameter, directed=TRUE)
 apls_er <- sapply(er_graphs, average.path.length)
@@ -42,7 +42,7 @@ avg_degrees_er_out <- sapply(er_graphs, function(graph) mean(degree(graph, mode 
 
 ## Configuration model
 flog.info("Generating 100K configuration graphs")
-config_graphs <- replicate(1000, degree.sequence.game(degree(tanzania_graph, mode = "out"),
+config_graphs <- replicate(1000000, degree.sequence.game(degree(tanzania_graph, mode = "out"),
                                                       degree(tanzania_graph, mode = "in"),
                                                       method = "simple"),
                            simplify = FALSE)
