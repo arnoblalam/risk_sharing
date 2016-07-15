@@ -17,3 +17,5 @@ library(igraph)
 largest_component <- function(graph) {
     length(cluster.distribution(graph)) - 1
 }
+
+sim_size <- 1E3
