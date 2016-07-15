@@ -8,12 +8,12 @@
 # Source in the utility file
 source("src/utils.R")
 
-sim_size <- 100
+# sim_size <- 100
 
 flog.info("Reading in data")
 tanzania_data <- read.csv("data/tanzania_data.csv", stringsAsFactors = FALSE)
 
-flog.info("Generate the graphs")
+flog.info("Making the observewd graphs")
 
 # Bilateral model
 # If either household says there is a link between them, we count it
@@ -56,7 +56,7 @@ size_bilateral <- length(E(bilateral_graph))
 size_unilateral <- length(E(unilateral_graph))
 size_desire_to_link <- length(E(desire_to_link_graph))
 
-
+flog.info("Generating %s graphs", sim_size)
 er_bilateral <- replicate(
     sim_size,
     sample_gnm(order_bilateral, size_bilateral, directed = FALSE, loops = FALSE),
