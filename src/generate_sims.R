@@ -8,7 +8,7 @@
 # Source in the utility file
 source("src/utils.R")
 
-# sim_size <- 100
+sim_size <- 100E3
 
 flog.info("Reading in data")
 tanzania_data <- read.csv("data/tanzania_data.csv", stringsAsFactors = FALSE)
@@ -78,3 +78,7 @@ config_desire_to_link <- replicate(sim_size,
                                                         in.deg = degree_desire_to_link_out,
                                                         method = "simple.no.multiple"),
                                    simplify = FALSE)
+
+er_bilateral_cc <- sapply(er_unilateral, )
+er_unilateral_cc <-
+er_desire_to_link_cc <-
