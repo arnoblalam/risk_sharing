@@ -14,7 +14,8 @@ tanzania_data <- read.csv("data/tanzania_data.csv", stringsAsFactors = FALSE)
 
 flog.info("Converting to igraph structure")
 # If either household says there is a link between them, we count it
-links <- as.matrix(tanzania_data[tanzania_data$willingness_link1 == 1 |tanzania_data$willingness_link2 == 1, 1:2])
+links <- as.matrix(tanzania_data[tanzania_data$willingness_link1 == 1 |
+                                     tanzania_data$willingness_link2 == 1, 1:2])
 # class(links) <- "character"
 # Create an igraph undirected graph from the links
 tanzania_graph <- graph_from_edgelist(links, directed = FALSE)
