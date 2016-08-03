@@ -23,28 +23,41 @@ tanzania_graph <- simplify(tanzania_graph,
                            remove.multiple = TRUE,
                            remove.loops = TRUE)
 
-d <- degree.distribution(tanzania_graph, cumulative = TRUE)
+d <- cumsum(degree.distribution(tanzania_graph))
 
-freqs <- data.frame(degree = 0:(length(d) -1), freq = d)
+freqs <- data.frame(degree = 0:(length(d) - 1),
+                    freq = d,
+                    log_comp_cum_freq = log(1 - d + 0.01))
 x <- data.frame(vertex=1:length(V(tanzania_graph)), degree = degree(tanzania_graph)) %>%
     left_join(freqs)
 x$d0 <- 0
-x$m <- mean(degree(tanzania_graph))/2
+x$m <- mean(degree(tanzania_graph))
 
-my_model <- nls(freq ~ 1 - ((d0 + r*m)/(degree + r*m)) ^ (1 + r), data = x,
-                start = list(r = 0.1))
+x <- x[!duplicated(x$degree),]
 
-r <- coef(my_model)
+# my_model <- nls(freq ~ 1 - ((d0 + r*m)/(degree + r*m)) ^ (1 + r), data = x,
+#                 start = list(r = 0.1))
 
-d0 <- 0
-m <- mean(degree(tanzania_graph))/2
 
-jackson_rogers <- 1 - ((d0 + r*m)/(0:max(degree(tanzania_graph)) + r*m)) ^ (1 + r)
-poisson_ <- ppois(0:max(degree(tanzania_graph)),
-                  lambda = mean(degree(tanzania_graph)))
+r <- 1
+for (i in 1:100) { #100 iterations
+    # print(r)
+    right <- log(x$degree + r*x$m)
+    model_1 <- lm(x$log_comp_cum_freq ~ right)
+    # print(coef(model_1))
+    r <- -coef(model_1)[[2]] - 1
+    print(r)
+}
 
-plot(freq ~ degree, data = x, log = "xy")
-lines(1 - jackson_rogers, col = "red")
-lines(1 - poisson_, col = "blue")
-legend("bottomleft", legend = c("actual", "Jackson-Rogers", "Poisson"),
-       lty = c(NA, 1, 1))
+# d0 <- 0
+# m <- mean(degree(tanzania_graph))/2
+#
+# jackson_rogers <- 1 - ((d0 + r*m)/(0:max(degree(tanzania_graph)) + r*m)) ^ (1 + r)
+# poisson_ <- ppois(0:max(degree(tanzania_graph)),
+#                   lambda = mean(degree(tanzania_graph)))
+#
+# plot(freq ~ degree, data = x, log = "xy")
+# lines(1 - jackson_rogers, col = "red")
+# lines(1 - poisson_, col = "blue")
+# legend("bottomleft", legend = c("actual", "Jackson-Rogers", "Poisson"),
+#        lty = c(NA, 1, 1))
