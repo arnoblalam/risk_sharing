@@ -11,6 +11,7 @@ message("Processing util files")
 library(futile.logger)
 flog.info("Loading required libraries")
 library(igraph)
+library(dplyr)
 
 `%+%` <- function(a, b) paste0(a, b)
 
