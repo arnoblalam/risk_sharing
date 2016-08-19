@@ -9,6 +9,8 @@
 # Source in the utility file
 source("src/utils.R")
 
+library(nlme)
+
 flog.info("Reading in data")
 tanzania_data <- read.csv("data/tanzania_data.csv", stringsAsFactors = FALSE)
 
@@ -28,7 +30,8 @@ d <- cumsum(degree.distribution(tanzania_graph))
 freqs <- data.frame(degree = 0:(length(d) - 1),
                     freq = d,
                     log_comp_cum_freq = log(1 - d + 0.01))
-x <- data.frame(vertex=1:length(V(tanzania_graph)), degree = degree(tanzania_graph)) %>%
+x <- data.frame(vertex = 1:length(V(tanzania_graph)),
+                degree = degree(tanzania_graph)) %>%
     left_join(freqs)
 x$d0 <- 0
 x$m <- mean(degree(tanzania_graph))
@@ -41,12 +44,10 @@ x <- x[!duplicated(x$degree),]
 
 r <- 1
 for (i in 1:100) { #100 iterations
-    # print(r)
     right <- log(x$degree + r*x$m)
-    model_1 <- lm(x$log_comp_cum_freq ~ right)
-    # print(coef(model_1))
+    model_1 <- gls(log_comp_cum_freq ~ right, data = x)
     r <- -coef(model_1)[[2]] - 1
-    print(r)
+    print(r, digits = 17)
 }
 
 # d0 <- 0

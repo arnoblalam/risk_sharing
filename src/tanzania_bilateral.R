@@ -8,6 +8,7 @@
 
 # Source in the utility file
 source("src/utils.R")
+sim_size <- 1000
 
 flog.info("Reading in data")
 tanzania_data <- read.csv("data/tanzania_data.csv", stringsAsFactors = FALSE)
