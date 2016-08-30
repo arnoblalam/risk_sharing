@@ -29,7 +29,7 @@ graph_underreported <- igraph::graph_from_edgelist(under_reported_links,
 
 futile.logger::flog.info(
     "Simplifying the graph by removing loops and multiple edges")
-igraph::simplify(graph_underreported,
+graph_underreported <- igraph::simplify(graph_underreported,
                  remove.multiple = TRUE,
                  remove.loops = TRUE)
 
@@ -53,17 +53,17 @@ graph_overreported <- igraph::graph_from_edgelist(over_reported_links,
 
 futile.logger::flog.info(
 "Adding isolated households which have no connections with other households")
-over_reported_links <- over_reported_links + 4
+graph_overreported <- graph_overreported + 4
 
 futile.logger::flog.info(
     "Simplifying the graph by removing loops and multiple edges")
-igraph::simplify(graph_overreported,
+graph_overreported <- igraph::simplify(graph_overreported,
          remove.multiple = TRUE,
          remove.loops = TRUE)
 
 futile.logger::flog.info("Writing the results as a graphML file")
 igraph::write.graph(graph = graph_overreported,
-                    file = "data/underreporting_model.graphml",
+                    file = "data/overreporting_model.graphml",
                     format = "graphml")
 
 
@@ -85,3 +85,6 @@ futile.logger::flog.info("Writing the results as a graphML file")
 graph_desire_to_link <- igraph::simplify(graph_desire_to_link,
                                          remove.multiple = FALSE,
                                          remove.loops = TRUE)
+igraph::write.graph(graph = graph_desire_to_link,
+                    file = "data/desire_to_link_model.graphml",
+                    format = "graphml")
