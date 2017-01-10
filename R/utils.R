@@ -15,8 +15,5 @@ library(dplyr)
 
 `%+%` <- function(a, b) paste0(a, b)
 
-largest_component <- function(graph) {
-    length(cluster.distribution(graph)) - 1
-}
-
 sim_size <- 100E3
+flog.info("Simulation Size is " %+% sim_size)
