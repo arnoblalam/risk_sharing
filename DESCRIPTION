@@ -1,0 +1,14 @@
+Package: risk_sharing
+Title: Risk Sharing Networks in Tanzania
+Version: 0.1
+Authors@R: person("Arnob", "Alam", email = "aa2288a@student.american.edu",
+                  role = c("aut", "cre"))
+Description: This is an analysis of the risk sharing network in the village of
+    Nyakatoke in Tanzania
+License: GPL-3
+LazyData: true
+Imports:
+    futile.logger,
+    igraph,
+    dplyr
+RoxygenNote: 5.0.1
