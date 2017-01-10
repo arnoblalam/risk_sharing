@@ -1,0 +1,192 @@
+PackratFormat: 1.4
+PackratVersion: 0.4.8.1
+RVersion: 3.3.2
+Repos: CRAN=https://mran.revolutionanalytics.com/snapshot/2016-11-01,
+    CRANextra=http://www.stats.ox.ac.uk/pub/RWin
+
+Package: BH
+Source: CRAN
+Version: 1.60.0-2
+
+Package: DBI
+Source: CRAN
+Version: 0.5-1
+
+Package: NMF
+Source: CRAN
+Version: 0.20.6
+Requires: RColorBrewer, colorspace, digest, doParallel, foreach,
+    ggplot2, gridBase, pkgmaker, registry, reshape2, rngtools, stringr
+
+Package: R6
+Source: CRAN
+Version: 2.2.0
+Hash: 712773a3439bd32db5c40938e1a9aac2
+
+Package: RColorBrewer
+Source: CRAN
+Version: 1.1-2
+Hash: c0d56cd15034f395874c870141870c25
+
+Package: Rcpp
+Source: CRAN
+Version: 0.12.7
+Hash: f0ba7322cfb66f1b563462faa9c2b2ab
+
+Package: assertthat
+Source: CRAN
+Version: 0.1
+Hash: 0afb92b59b02593c70ff8046700ba9d3
+
+Package: colorspace
+Source: CRAN
+Version: 1.2-7
+Hash: a5cf9920b36c0a171e1b04ffed1ace5a
+
+Package: dichromat
+Source: CRAN
+Version: 2.0-0
+Hash: 08eed0c80510af29bb15f840ccfe37ce
+
+Package: digest
+Source: CRAN
+Version: 0.6.10
+Hash: 87165608ca8aeb0958835c3c5b52b6b7
+
+Package: doParallel
+Source: CRAN
+Version: 1.0.10
+Requires: foreach, iterators
+Hash: df91a7abfa938c06ad87b9a2b9269adb
+
+Package: dplyr
+Source: CRAN
+Version: 0.5.0
+Requires: BH, DBI, R6, Rcpp, assertthat, lazyeval, magrittr, tibble
+
+Package: foreach
+Source: CRAN
+Version: 1.4.3
+Requires: iterators
+Hash: cd53ef4cf29dc59ce3f8c5c1af735fd1
+
+Package: futile.logger
+Source: CRAN
+Version: 1.4.3
+Requires: futile.options, lambda.r
+
+Package: futile.options
+Source: CRAN
+Version: 1.0.0
+
+Package: ggplot2
+Source: CRAN
+Version: 2.1.0
+Requires: digest, gtable, plyr, reshape2, scales
+Hash: 50e297b0191179c39c7dcae0eff72b51
+
+Package: gridBase
+Source: CRAN
+Version: 0.4-7
+
+Package: gtable
+Source: CRAN
+Version: 0.2.0
+Hash: cd78381a9d3fea966ac39bd0daaf5554
+
+Package: igraph
+Source: CRAN
+Version: 1.0.1
+Requires: NMF, irlba, magrittr
+
+Package: irlba
+Source: CRAN
+Version: 2.1.2
+
+Package: iterators
+Source: CRAN
+Version: 1.0.8
+Hash: 488b93c2a4166db0d15f1e8d882cb1d4
+
+Package: labeling
+Source: CRAN
+Version: 0.3
+Hash: ecf589b42cd284b03a4beb9665482d3e
+
+Package: lambda.r
+Source: CRAN
+Version: 1.1.9
+
+Package: lazyeval
+Source: CRAN
+Version: 0.2.0
+Hash: 3d6e7608e65bbf5cb170dab1e3c9ed8b
+
+Package: magrittr
+Source: CRAN
+Version: 1.5
+Hash: bdc4d48c3135e8f3b399536ddf160df4
+
+Package: munsell
+Source: CRAN
+Version: 0.4.3
+Requires: colorspace
+Hash: f96d896947fcaf9b6d0074002e9f4f9d
+
+Package: packrat
+Source: CRAN
+Version: 0.4.8-1
+Hash: 6ad605ba7b4b476d84be6632393f5765
+
+Package: pkgmaker
+Source: CRAN
+Version: 0.22
+Requires: digest, registry, stringr, xtable
+
+Package: plyr
+Source: CRAN
+Version: 1.8.4
+Requires: Rcpp
+Hash: 75ca080b10a9314a9b293964331e5df7
+
+Package: registry
+Source: CRAN
+Version: 0.3
+
+Package: reshape2
+Source: CRAN
+Version: 1.4.2
+Requires: Rcpp, plyr, stringr
+Hash: e67d3313d2413c398da41eba4a4e7520
+
+Package: rngtools
+Source: CRAN
+Version: 1.2.4
+Requires: digest, pkgmaker, stringr
+
+Package: scales
+Source: CRAN
+Version: 0.4.0
+Requires: RColorBrewer, Rcpp, dichromat, labeling, munsell, plyr
+Hash: c4a91e7a322e03813b68b73940ce031f
+
+Package: stringi
+Source: CRAN
+Version: 1.1.2
+Hash: 1ad6b1cc11d982ac233bf2fa2f7c9684
+
+Package: stringr
+Source: CRAN
+Version: 1.1.0
+Requires: magrittr, stringi
+Hash: 4d21d0063b37a17ea18eaec6acd29bf3
+
+Package: tibble
+Source: CRAN
+Version: 1.2
+Requires: Rcpp, assertthat, lazyeval
+Hash: 3b35b556ef7acddb0d28fe6a27ad50e4
+
+Package: xtable
+Source: CRAN
+Version: 1.8-2
