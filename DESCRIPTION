@@ -1,4 +1,4 @@
-Package: risk_sharing
+Package: riskSharing
 Title: Risk Sharing Networks in Tanzania
 Version: 0.1
 Authors@R: person("Arnob", "Alam", email = "aa2288a@student.american.edu",
