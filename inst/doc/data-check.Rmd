@@ -1,0 +1,69 @@
+---
+title: "Data Check"
+author: "Arnob Alam"
+date: "January 11, 2017"
+output: html_document
+vignette: >
+  %\VignetteIndexEntry{Data Check}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Purpose
+The purpose of this vignette is to check the Nyakatoke village data provided
+in (source) and compare descriptive statistics with what is stated in published
+works.
+
+## Data loading/saving
+
+This part of the code is simply loads the raw data in the extdata folder and
+saves it as an R data set
+
+```{r datamunging}
+baseLoc <- system.file(package="riskSharing") 
+extPath <- file.path(baseLoc, "extdata") 
+```
+
+```{r nyakatoke_data, eval=FALSE}
+nyakatoke <- read.csv(file.path(extPath, file.path("tanzania_data.csv")))
+save(nyakatoke, file = "../data/nyakatoke.RData", compress = "xz")
+```
+
+# Ananlysis
+
+We load the igraph package and reload the data
+
+```{r loadData}
+library(riskSharing)
+data("nyakatoke")
+```
+
+## Recreate DeWeerdt (2006)
+
+Let's create an undirected graph from the data.  In this case, we say two 
+households share a link if either household reported the other.
+
+```{r create_graph}
+library(igraph)
+g <- graph_from_data_frame(nyakatoke[nyakatoke$willingness_link1 == 1 |
+                                nyakatoke$willingness_link2,], directed = FALSE)
+g <- simplify(g)
+```
+
+```{r base_stats}
+library(xtable)
+g.order <- length(igraph::V(g))
+g.size <- length(igraph::E(g))
+g.mean.degree <- mean(degree(g))
+g.min.degree <- min(degree(g))
+g.max.degree <- max(degree(g))
+g.distances <- distance_table(g)$res
+names(g.distances) <- 1:length(g.distances)
+summary.stats <- data.frame("graph order" = g.order,
+                            "graph size" = g.size)
+print(xtable(summary.stats), type="html")
+```
