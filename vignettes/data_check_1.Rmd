@@ -1,0 +1,30 @@
+---
+title: "Data Check"
+author: "Arnob Alam"
+date: "January 11, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Purpose
+The purpose of this vignette is to check the Nyakatoke village data provided
+in (source) and compare descriptive statistics with what is stated in published
+works.
+
+## Data loading/saving
+
+This part of the code is simply loads the raw data in the extdata folder and
+saves it as an R data set
+
+```{r datamunging}
+baseLoc <- system.file(package="riskSharing") 
+extPath <- file.path(baseLoc, "extdata") 
+```
+
+```{r nyakatoke_data, eval=FALSE}
+raw_data <- read.csv(file.path(extPath, file.path("tanzania_data.csv")))
+save(raw_data, file = "data/nyakatoke.RData")
+```
