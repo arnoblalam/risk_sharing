@@ -10,5 +10,6 @@ LazyData: true
 Imports:
     futile.logger,
     igraph,
-    dplyr
+    dplyr,
+    roxygen2
 RoxygenNote: 5.0.1
