@@ -5,7 +5,6 @@
 #' @return integer number of nodes in largest component of graph
 #' @export
 #'
-#' @examples
 largest_component <- function(graph) {
     length(cluster.distribution(graph)) - 1
 }
